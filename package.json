@@ -1,0 +1,16 @@
+{
+  "name": "tg-bright_fairy_1.0",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "telegraf": "^4.16.3"
+  }
+}
