@@ -1,6 +1,3 @@
-import { Telegraf, Markup } from 'telegraf';
-import { FirebaseService } from './firebaseService';
-
 // Инициализация Telegram бота
 const bot = new Telegraf('6979302839:AAFn6yPdRu17MwLv4A40JAgueZznSQJ6ShE');
 const WEB_APP_BASE_URL = 'https://tgappbrighfairy.web.app';
@@ -16,6 +13,13 @@ bot.start(async (ctx) => {
     const startParam = ctx.message.text.split(' ')[1];
     const referralId = startParam ? startParam : '';
 
+    // Логирование информации о реферальном ID
+    if (referralId) {
+        console.log(`Пользователь ${telegramId} был приглашен пользователем ${referralId}`);
+    } else {
+        console.log(`Пользователь ${telegramId} начал без реферального ID`);
+    }
+
     // Генерация уникальной ссылки
     let uniqueLink = `${WEB_APP_BASE_URL}?telegramId=${telegramId}&username=${username}`;
     if (referralId) {
@@ -24,7 +28,11 @@ bot.start(async (ctx) => {
 
     // Сохранение реферальной информации в Firebase
     if (referralId) {
-        await firebaseService.saveReferralData(telegramId, referralId);
+        try {
+            await firebaseService.saveReferralData(telegramId, referralId);
+        } catch (error) {
+            console.error(`Ошибка при сохранении данных реферала для пользователя ${telegramId}:`, error);
+        }
     }
 
     // Отправка сообщения пользователю
@@ -37,6 +45,3 @@ bot.start(async (ctx) => {
 
 bot.launch();
 console.log('Бот запущен');
-
-
-
