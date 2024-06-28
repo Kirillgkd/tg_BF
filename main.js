@@ -9,6 +9,9 @@ bot.start(async (ctx) => {
     const telegramId = user.id;
     const username = user.username || '';
 
+    // Логирование полученного сообщения
+    console.log(`Получено сообщение: ${ctx.message.text}`);
+
     // Извлечение start параметра
     const startParam = ctx.message.text.split(' ')[1];
     const referralId = startParam ? startParam : '';
@@ -30,6 +33,7 @@ bot.start(async (ctx) => {
     if (referralId) {
         try {
             await firebaseService.saveReferralData(telegramId, referralId);
+            console.log(`Реферальная информация сохранена: Пользователь ${telegramId} был приглашен пользователем ${referralId}`);
         } catch (error) {
             console.error(`Ошибка при сохранении данных реферала для пользователя ${telegramId}:`, error);
         }
