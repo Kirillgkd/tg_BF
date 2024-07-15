@@ -53,4 +53,4 @@ bot.command('get_referral_link', (ctx) => {
 });
 
 bot.launch();
-console.log('Бот запущен');
+console.log('Бот запущен прямо сейчас');
